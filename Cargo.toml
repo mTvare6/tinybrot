@@ -1,0 +1,10 @@
+[package]
+name = "tinybrot"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+lexopt = "0.3.0"
+num = "0.4.3"
+png = "0.17.14"
+rayon = "1.10.0"
