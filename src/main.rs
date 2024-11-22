@@ -112,7 +112,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut data = vec![0; config.sw * config.sh * 4];
 
     let max_iteration = 10000;
-    let c = Complex{re: -0.54, im:0.54};
+    let c = Complex{re: 0.355534, im:-0.337292};
     
     data.par_chunks_mut(4).enumerate().for_each(|(i, chunk)| {
         let py = i / config.sw;

@@ -1,8 +1,11 @@
 # tinybrot
 
 ![z^2 + z0](examples/a.png)
-![z0^2 + c](examples/b.png)
 
+![z0^2 + c](examples/b.png)
+ c = -0.54 + i0.54
+![z0^2 + c](examples/b.png)
+c = 0.355534 - 0.337292i
 
 
 # Building
