@@ -7,6 +7,8 @@ use std::path::Path;
 mod colormaps;
 use crate::colormaps::*;
 
+const R:f64 = 1.;
+
 fn pixel_coordinates(px: usize, py: usize, config: &Config) -> (f64, f64) {
     let x =
         ((config.xu - config.xl) * (px as f64 / config.sw as f64) + config.xl) * config.aspect_ratio;
@@ -77,10 +79,10 @@ fn parse_args() -> Result<Config, lexopt::Error> {
         map,
         w,
         h,
-        xl: -2.,
-        xu: 0.47,
-        yl: -1.12,
-        yu: 1.12,
+        xl: -R,
+        xu: R,
+        yl: -R,
+        yu: R,
         supersampling,
         aspect_ratio: w as f64 / h as f64,
         outfile: outfile.ok_or("missing argument output file")?,
@@ -109,18 +111,18 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let mut data = vec![0; config.sw * config.sh * 4];
 
-    let max_iteration = 1000;
+    let max_iteration = 10000;
+    let c = Complex{re: -0.54, im:0.54};
     
     data.par_chunks_mut(4).enumerate().for_each(|(i, chunk)| {
         let py = i / config.sw;
         let px = i - py * config.sw;
         let (re, im) = pixel_coordinates(px, py, &config);
-        let z0 = Complex{re, im};
-        let mut z = Complex{re:0., im:0.};
+        let mut z = Complex{re, im};
 
         let mut iteration = 0;
-        while z.norm_sqr() <= 2. * 2. && iteration < max_iteration {
-            z = z.powu(2) + z0; 
+        while z.norm_sqr() <= 9. && iteration < max_iteration {
+            z = z.powu(2) + c;
             iteration += 1;
         }
         let c = iteration_color(iteration, &config.map);

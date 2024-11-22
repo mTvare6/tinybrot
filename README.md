@@ -1,6 +1,7 @@
 # tinybrot
 
 ![z^2 + z0](examples/a.png)
+![z0^2 + c](examples/b.png)
 
 
 
